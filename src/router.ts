@@ -1,12 +1,15 @@
 import { Router } from "express";
-import { createProduct } from "./handlers/product";
+import { createProduct, getProductById, getProducts } from "./handlers/product";
+import { param } from "express-validator";
 
 
 const router = Router()
 
-router.get('/', (req,res)=> {
-   res.json('desde GET')    
-})
+router.get('/', getProducts )
+
+router.get('/:id', getProductById ,
+    param('id').isInt().withMessage('ID no válido')
+ )
 
 router.post('/', createProduct )
 

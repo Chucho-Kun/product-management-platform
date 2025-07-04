@@ -1,7 +1,47 @@
 import { Request , Response } from "express"
 import Product from '../models/Product.model';
 import { check, validationResult } from "express-validator";
-import { handleInputErrors } from "../middleware";
+
+export const getProducts = async ( req : Request , res : Response )=> {
+
+   try{
+    const products = await Product.findAll({
+        order:[
+            ['price','ASC']
+        ],
+        attributes: { exclude: [ 'availibility' , 'createdAt' , 'updatedAt' ] },
+        limit : 2
+    })
+    res.json({ data : products })
+   }catch( error ){
+    console.log( error );
+   }   
+
+}
+
+export const getProductById = async ( req : Request , res : Response )=> {
+
+   try{
+
+        const { id } = req.params 
+        const product = await Product.findByPk( id )
+
+        if(!product){
+            res.status(404).json({
+                error: 'Producto no encontrado'
+            })
+            return
+        }
+
+        res.json( { data : product } )
+    
+    }catch( error ){
+
+        console.log( error );
+    
+   }   
+
+}
 
 export const createProduct = async ( req : Request , res : Response ) => {
     
