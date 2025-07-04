@@ -7,10 +7,9 @@ import colors from "colors"
 async function connectDB(){
     try{
         await db.authenticate()
-        db.sync()
+        db.sync({ force: true })
         console.log(colors.yellow.bold('Conexion exitosa a la DB'))
     }catch( error ){
-        console.log( error )
         console.log(colors.red.bold('Error en la conexión a la base de datos'))
     }
 }
