@@ -7,18 +7,20 @@ import colors from "colors"
 async function connectDB(){
     try{
         await db.authenticate()
-        db.sync({ force: true })
+        db.sync()
         console.log(colors.yellow.bold('Conexion exitosa a la DB'))
     }catch( error ){
         console.log(colors.red.bold('Error en la conexión a la base de datos'))
     }
 }
-
 connectDB()
-// Routing
+
+// instancia de express
 const server = express()
 
-server.use('/api/products', router )
+// leer json
+server.use( express.json() )
 
+server.use('/api/products', router )
 
 export default server
