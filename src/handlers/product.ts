@@ -10,19 +10,24 @@ export const getProducts = async ( req : Request , res : Response )=> {
             ['price','ASC']
         ],
         attributes: { exclude: [ 'availibility' , 'createdAt' , 'updatedAt' ] },
-        limit : 2
+        limit : 5
     })
-    res.json({ data : products })
+        res.json({ data : products })
    }catch( error ){
-    console.log( error );
+        console.log( error );
    }   
 
 }
 
 export const getProductById = async ( req : Request , res : Response )=> {
 
-   try{
+    let errors = validationResult( req )
+    if(!errors.isEmpty()){
+        res.status(400).json({ errors: errors.array() })
+        return;
+    }
 
+   try{
         const { id } = req.params 
         const product = await Product.findByPk( id )
 
@@ -32,13 +37,10 @@ export const getProductById = async ( req : Request , res : Response )=> {
             })
             return
         }
-
         res.json( { data : product } )
     
     }catch( error ){
-
         console.log( error );
-    
    }   
 
 }
@@ -70,5 +72,97 @@ export const createProduct = async ( req : Request , res : Response ) => {
 
 }
 
+export const updateProduct = async ( req : Request , res : Response )=> {
+    
+    let errors = validationResult( req )
+    if(!errors.isEmpty()){
+        res.status(400).json({ errors: errors.array() })
+        return;
+    }  
+    // actualizar producto ( forma parcial )
+    try{
+        const { id } = req.params
+        const product = await Product.findByPk( id )
+
+         if(!product){
+            res.status(404).json({
+                error: 'Producto no encontrado'
+            })
+            return
+        }
+    
+        await product.update( req.body )
+        await product.save()
+        res.json({ data : product })
+    }catch( error ){
+        console.log( error );
+        
+    }
+
+}
+
+export const updateAvailability = async ( req : Request , res : Response )=>{
+
+    let errors = validationResult( req )
+    if(!errors.isEmpty()){
+        res.status(400).json({ errors: errors.array() })
+        return;
+    }  
+
+    try{
+        const { id } = req.params
+        const product = await Product.findByPk( id )
+
+        if(!product){
+            res.status(404).json({
+                error: 'Producto no encontrado'
+            })
+            return
+        }
+
+        product.availibility = !product.dataValues.availibility
+        await product.save()
+
+        res.json({ data : product})
+    }catch( error ){
+        console.log(error);
+        
+    }
+
+}
+
+export const deleteProduct = async ( req : Request , res : Response ) => {
+
+    let errors = validationResult( req )
+    if(!errors.isEmpty()){
+        res.status(400).json({ errors: errors.array() })
+        return;
+    }  
+    
+    try{
+        const { id } = req.params
+        const product = await Product.findByPk( id )
+        
+        if(!product){
+            res.status(404).json({
+                error: 'Producto no encontrado'
+            })
+            return
+        }
+        await product.destroy()
+        res.json({ data: 'Producto eliminado' })
+    }catch( error ){
+        console.log( error );
+    }
+
+}
+
 //const product = new Product( req.body )
     //const savedProduct = await product.save()
+
+
+// actualizar producto ( forma estricta )
+// product.name = req.body.name
+// product.price = req.body.price
+// product.availability = req.body.availability
+// await product.save()

@@ -1,29 +1,34 @@
 import { Router } from "express";
-import { createProduct, getProductById, getProducts } from "./handlers/product";
+import { createProduct, deleteProduct, getProductById, getProducts, updateAvailability, updateProduct } from "./handlers/product";
 import { param } from "express-validator";
-
 
 const router = Router()
 
 router.get('/', getProducts )
 
-router.get('/:id', getProductById ,
-    param('id').isInt().withMessage('ID no válido')
+router.get('/:id', 
+    param('id').isInt().withMessage('ID no válido'),
+    getProductById
  )
 
-router.post('/', createProduct )
+router.post( '/' ,
+    createProduct 
+)
 
-router.put('/',(req,res) => {
-    res.json('desde PUT')
-})
+router.put( '/:id' ,
+    param('id').isInt().withMessage('ID no válido'),
+    updateProduct 
+)
 
-router.patch('/' , ( req , res ) => {
-    res.json('desde PATCH')
-})
+router.patch( '/:id' ,
+    param('id').isInt().withMessage('ID no válido'),
+    updateAvailability 
+)
 
-router.delete('/' , ( req , res ) => {
-    res.json('desde DELETE')
-})
+router.delete( '/:id' ,
+    param('id').isInt().withMessage('ID no válido'),
+    deleteProduct
+)
 
 export default router
 
