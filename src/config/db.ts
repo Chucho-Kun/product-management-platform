@@ -5,7 +5,8 @@ import colors from 'colors';
 dotenv.config()
 
 const db = new Sequelize( process.env.DB_URL , {
-    models: [ __dirname + '/../models/**/*.ts' ]
+    models: [ __dirname + '/../models/**/*.ts' ],
+    logging: false
 } )
 
 export default db
