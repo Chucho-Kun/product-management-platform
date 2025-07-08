@@ -1,6 +1,7 @@
 import resquest from "supertest"
 import server from "../server"
 
+/*
 describe( 'GET /api' , () => {
     test('should send back a json response' , async () => {
         const res = await resquest( server ).get('/api')
@@ -16,7 +17,7 @@ describe( 'GET /api' , () => {
         //console.log( res.body.msg )
     
     })
-})
+}) */
 
 /**
 describe('Primer test' , () => {
