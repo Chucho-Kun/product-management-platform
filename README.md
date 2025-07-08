@@ -3,6 +3,9 @@ an API with PostgreSQL - Node / Typescript Server - Express ( PERN )
 ## Technologies
 React + Typescript + TailwindCSS + Zustand + Axios + Zod + React Router and different libraries that are listed in the development commits
 ## Developer Notes
+![Gameplay 1](src/screenshots/jest.png)
+* Tested with Jest, Super Test, and Code Coverage and documented with swagger and swagger-ui
+![Gameplay 2](src/screenshots/documentation.png)
 ### API documented with swagger - PERN Stack
 #### src/router.ts
 ```
