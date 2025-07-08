@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { SwaggerUiOptions } from "swagger-ui-express";
 
 const options : swaggerJSDoc.Options = {
     swaggerDefinition: {
@@ -17,5 +18,21 @@ const options : swaggerJSDoc.Options = {
 }
 
 const swaggerSpec = swaggerJSDoc( options )
-export default swaggerSpec
 
+const swaggerUiOptions : SwaggerUiOptions = {
+    customCss: `
+        .topbar-wrapper .link {
+            content: url('https://storiesbehindsongs.com/logoWeb.svg');
+            height: 80px;
+            width: auto;
+        }
+        .swagger-ui .topbar{
+            background-color: #000000    
+        }
+    `,
+    customSiteTitle: 'Documentación REST API Express / TypeScript',
+    customfavIcon: 'https://storiesbehindsongs.com/favicon.ico'
+}
+
+export default swaggerSpec
+export {swaggerUiOptions}
