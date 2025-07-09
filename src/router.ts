@@ -30,7 +30,7 @@ const router = Router()
  */
 router.get('/', getProducts )
 /**
- * @swagger
+ * @swagger 
  * /api/products:
  *      get:
  *          summary: Get a list of all products

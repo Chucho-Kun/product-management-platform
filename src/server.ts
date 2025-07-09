@@ -2,8 +2,10 @@ import express from "express"
 import router from "./router"
 import db from "./config/db"
 import colors from "colors"
+import cors , { CorsOptions } from "cors"
 import swaggerUi , { SwaggerUiOptions } from 'swagger-ui-express'
 import swaggerSpec, { swaggerUiOptions } from "./config/swagger"
+import morgan from "morgan"
 
 // conexion a DB
 export async function connectDB(){
@@ -20,9 +22,24 @@ connectDB()
 // instancia de express
 const server = express()
 
+// permitir conexiones CORS
+const corsOptions : CorsOptions = {
+    origin: function( origin , callback ){
+        if( origin === process.env.FRONTEND_URL ){
+            callback( null , true)
+        }else{
+            callback( new Error )
+            
+        }
+        
+    }
+}
+server.use( cors( corsOptions) )
+
 // leer json
 server.use( express.json() )
 
+server.use( morgan('dev') )
 server.use('/api/products', router )
 
 // Docs
