@@ -1,7 +1,9 @@
-# REST API NODE - Typescrip - Server
-an API with PostgreSQL - Node / Typescript Server - Express ( PERN )
+# SERVER - REST API NODE - Typescrip ( PERN )
+A server in Node that connects to an API in PostgreSQL - Node / Typescript Server - Express ( PERN )
 ## Technologies
-React + Typescript + TailwindCSS + Zustand + Axios + Zod + React Router and different libraries that are listed in the development commits
+Node + TypeScript + Sequelize + Express
+Testing tests with Jest + Super Test
+API documented by Swagger
 ## Developer Notes
 ![Gameplay 1](src/screenshots/jest.png)
 * Tested with Jest, Super Test, and Code Coverage and documented with swagger and swagger-ui
